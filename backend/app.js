@@ -35,12 +35,12 @@ app.get('/ws', (req, res) => {
     res.send('WebSocket or related response');
 });
 
-// Serve static files from the 'build' folder (React app)
-app.use(express.static(path.join(__dirname, 'build')));
+// Serve static files from the frontend's build folder
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
-// Catch-all route to serve the React app's index.html for any non-API routes
+// Catch-all route to serve index.html from the frontend's build
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
 });
 
 // Start the server
