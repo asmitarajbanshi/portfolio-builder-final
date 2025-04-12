@@ -36,10 +36,10 @@ app.get('/ws', (req, res) => {
     res.send('WebSocket or related response');
 });
 
-// Serve static files from the frontend's build folder
+// Serve static files from the frontend's build folder (if the frontend and backend are together)
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
-// Catch-all route to serve index.html from the frontend's build
+// Catch-all route to serve index.html from the frontend's build (if the frontend and backend are together)
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
 });
