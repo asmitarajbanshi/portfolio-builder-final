@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-dotenv.config({ path: 'Config/.env' });
+dotenv.config(); // Automatically loads from '.env' file in root
 
 import express from 'express';
 const app = express();
@@ -15,11 +15,12 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// CORS setup - Ensure it's correctly configured for production URL
 const corsOptions = {
-    origin: `${process.env.FRONTENDURL}`,
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Allow localhost during dev and the correct frontend URL in prod
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'auth-token', 'Accept', 'Code', 'Origin', 'Authorization'],
-    credentials: true
+    credentials: true,
 };
 
 // Middleware setup
