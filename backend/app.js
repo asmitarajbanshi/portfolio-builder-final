@@ -17,7 +17,7 @@ const __dirname = dirname(__filename);
 
 // CORS setup - Ensure it's correctly configured for production URL
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Allow localhost during dev and the correct frontend URL in prod
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // Allow localhost during dev and the correct frontend URL in production
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'auth-token', 'Accept', 'Code', 'Origin', 'Authorization'],
     credentials: true,
@@ -36,13 +36,18 @@ app.get('/ws', (req, res) => {
     res.send('WebSocket or related response');
 });
 
-// Serve static files from the frontend's build folder (if the frontend and backend are together)
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+// ------- Commented out static file serving for frontend -------
+// If you are deploying the frontend separately, you no longer need to serve the static files from here.
 
-// Catch-all route to serve index.html from the frontend's build (if the frontend and backend are together)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
-});
+// // Serve static files from the frontend's build folder (if the frontend and backend are together)
+// app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+
+// // Catch-all route to serve index.html from the frontend's build (if the frontend and backend are together)
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
+// });
+
+// -----------------------------------------------------------------
 
 // Start the server
 app.listen(process.env.PORT || 5001, (req, res, err) => {
